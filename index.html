@@ -2,14 +2,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Credit Cards</title>
+    <style>
+        html {
+            font-size: 20vw;
+            height: 100vh;
+        }
+
+        @media screen and (min-width: 768px) {
+            html {
+                font-size: 10vw;
+            }
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        iframe {
+            border: none;
+            border-width: 0;
+        }
+
+        button {
+            position: absolute;
+            bottom: 0.6666666666666666rem;
+            right: 0.21333333333333335rem;
+            padding: 13px 32px 11px 32px;
+            background: #1379c8;
+            border: 2px solid #116db4;
+            border-radius: 4px;
+
+            color: #ffffff;
+            font-size: 20px;
+        }
+    </style>
 </head>
 
-<body>
-    <div>test</div>
+<body ontouchstart>
+    <button type="button" id="button">Next</button>
+    <script src="https://xiecomm.paymetric.com/DIeComm/Scripts/XIFrame/XIFrame-1.2.0.js"></script>
+    <script>
+        // const query = new URLSearchParams(window.location.search);
+
+        // const merchantGuid = query.get("merchantGuid");
+        // const accessToken = query.get("accessToken");
+
+        // console.log(merchantGuid, accessToken);
+
+        const targetUrl = `https://fergusoniframe-pp-prtldev.spectrumretailnet.com/PP?PAGE=HOSTEDPAYMENT&SESSIONID=FCA45BB4-B86C-4806-9F80-888501D4B97E`;
+
+        const buttonEl = window.document.querySelector("#button");
+
+        buttonEl.onclick = submitForm;
+
+        function sendPostMessage(value) {
+            console.log("props: value", value);
+            window.ReactNativeWebView?.postMessage(value);
+        }
+
+        // window.onload = function () {
+        //     let inserted = false;
+        //     let bodyClientHeight = document.querySelector('body').clientHeight
+
+        //     const interval = setInterval(() => {
+        //         if (window?.postMessage) {
+        //             if (!inserted) {
+        //                 inserted = true;
+        //             }
+        //             sendPostMessage(JSON.stringify({
+        //                 height: bodyClientHeight
+        //             }))
+        //         }
+        //         if (document.readyState === 'complete') {
+        //             clearInterval(interval)
+        //         }
+        //     }, 200);
+        // }
+
+        function submitForm() {
+            // $XIFrame.submit({
+            //     iFrameId: "dieCommFrame",
+            //     targetUrl,
+            //     onSuccess: function (result) {
+            //         const { data } = JSON.parse(result);
+            //         console.log("data", data);
+            //         sendPostMessage(
+            //             JSON.stringify({
+            //                 ...data,
+            //             })
+            //         );
+            //     },
+            //     onError: function (error) {
+            //         console.log("props: error", error);
+            //         sendPostMessage(JSON.stringify(...error));
+            //     },
+            // });
+        }
+
+        const bodyEl = window.document.querySelector("body");
+        const newIframe = window.document.createElement("iframe");
+
+        newIframe.id = "dieCommFrame";
+        newIframe.width = "100%";
+        newIframe.height = "580px";
+        newIframe.src = targetUrl;
+        newIframe.type = "text/html";
+        bodyEl.insertAdjacentElement("afterbegin", newIframe);
+
+
+    </script>
 </body>
 
 </html>
