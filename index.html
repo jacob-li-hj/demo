@@ -92,14 +92,12 @@
             let bodyClientHeight = document.querySelector('body').clientHeight
 
             const interval = setInterval(() => {
-                if (window?.postMessage) {
-                    if (!inserted) {
-                        inserted = true;
-                    }
-                    sendPostMessage(JSON.stringify({
-                        height: bodyClientHeight
-                    }))
+                if (!inserted) {
+                    inserted = true;
                 }
+                sendPostMessage(JSON.stringify({
+                    height: bodyClientHeight
+                }))
                 if (document.readyState === 'complete') {
                     clearInterval(interval)
                 }
