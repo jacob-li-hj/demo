@@ -61,7 +61,16 @@
 
         function sendPostMessage(value) {
             console.log("props: value", value);
-            window.ReactNativeWebView?.postMessage(value);
+            try {
+                if (window.ReactNativeWebView) {
+                    window.ReactNativeWebView.postMessage(value);
+                } else {
+                    window.postMessage(value);
+                }
+            }
+            catch (err) {
+                console.log(err)
+            }
         }
 
         window.addEventListener("message", receiveMessage, false);
